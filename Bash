@@ -1,0 +1,9 @@
+make data
+make queries
+make baseline
+make train
+make predict
+make eval
+make bench
+make effect
+make test
