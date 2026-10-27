@@ -8,7 +8,7 @@ def data():
 def train():
   
 def baseline():
-   from baseline import *
+   from src.baseline_ import *
 
 
 baseline
