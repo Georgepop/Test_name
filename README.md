@@ -210,31 +210,35 @@ python evaluate.py
 
 ## 📁 Структура проекта
 
- Data.py  
-Содержит:
-  DATA   — узлы, рёбра, парк самосвалов
-  ROAD_TYPES   — типы дорог
-  build_graph()   — построение NetworkX DiGraph
-  create_trucks()   — генерация парка
-  travel_ticks()   — расчёт времени проезда
-  get_candidate_paths()   — поиск путей
-  get_full_routes()   — формирование полных маршрутов
-  baseline_.py  
-Содержит:
-  TruckRoutingModel   — класс CP-SAT модели
-  build()   — переменные и ограничения
-  solve()   — запуск решателя
-  extract_solution()   — извлечение маршрутов
-Точка входа для   make baseline  
-  evaluate.py  
-Содержит:
-  evaluate_solution(result.json)   — расчёт метрик
-Вывод отчёта в консоль/файл
-Точка входа для   make eval  
-  make_animated.py  
-Содержит:
-  visualize_graph(G, solution)   — статичная визуализация
-  animate_schedule(G, solution)   — анимация движения самосвалов
-Точка входа для отображения графа
-  result.json  
-Результат работы модели
+**`Data.py`**
+Содержит данные и физические модели:
+- `DATA` — узлы, рёбра, парк самосвалов
+- `ROAD_TYPES` — типы дорог и их параметры
+- `build_graph()` — построение NetworkX DiGraph
+- `create_trucks()` — генерация парка машин
+- `travel_ticks()` — расчёт времени проезда с учётом уклона и покрытия
+- `get_candidate_paths()` — поиск альтернативных путей
+- `get_full_routes()` — формирование полных маршрутов (Start → Load → Dump)
+
+**`baseline_.py`**
+Реализует решатель на базе CP-SAT:
+- `TruckRoutingModel` — класс CP-SAT модели
+- `build()` — создание переменных и ограничений
+- `solve()` — запуск решателя OR-Tools
+- `extract_solution()` — извлечение и парсинг маршрутов
+- *Точка входа для команды `make baseline`*
+
+**`evaluate.py`**
+Отвечает за анализ качества решения:
+- `evaluate_solution()` — расчёт метрик (makespan, утилизация, простои) на основе `result.json`
+- Формирование и вывод отчёта в консоль/файл
+- *Точка входа для команды `make eval`*
+
+**`make_animated.py`**
+Визуализация результатов:
+- `visualize_graph()` — статичная отрисовка графа с маршрутами
+- `animate_schedule()` — анимация движения самосвалов по графу
+- *Точка входа для отображения графа*
+
+**`result.json`**
+- Файл с результатами работы модели (список маршрутов `paths` и время завершения `times`).
