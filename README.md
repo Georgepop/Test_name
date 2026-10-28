@@ -210,15 +210,31 @@ python evaluate.py
 
 ## 📁 Структура проекта
 
-Старое имя	Новое имя	Назначение
-design.md	DESIGN.md	Дизайн исследования
-readme.md	README.md	Инструкция
-(новый)	EVAL.md	Описание метрик оценки
-src/__init__.py	SRC/__init__.py	Инициализация пакета
-src/cli.py	SRC/cli.py	CLI-диспетчер
-src/graph.py + src/physics.py	SRC/Data.py	Данные графа + физика
-src/model.py	SRC/baseline_.py	CP-SAT модель
-src/routes.py	(включено в Data.py)	Генерация маршрутов
-src/visualize.py	SRC/make_animated.py	Визуализация
-src/evaluate.py	SRC/evaluate.py	Оценка решения
-result.json	SRC/result.json	Результаты
+ Data.py  
+Содержит:
+  DATA   — узлы, рёбра, парк самосвалов
+  ROAD_TYPES   — типы дорог
+  build_graph()   — построение NetworkX DiGraph
+  create_trucks()   — генерация парка
+  travel_ticks()   — расчёт времени проезда
+  get_candidate_paths()   — поиск путей
+  get_full_routes()   — формирование полных маршрутов
+  baseline_.py  
+Содержит:
+  TruckRoutingModel   — класс CP-SAT модели
+  build()   — переменные и ограничения
+  solve()   — запуск решателя
+  extract_solution()   — извлечение маршрутов
+Точка входа для   make baseline  
+  evaluate.py  
+Содержит:
+  evaluate_solution(result.json)   — расчёт метрик
+Вывод отчёта в консоль/файл
+Точка входа для   make eval  
+  make_animated.py  
+Содержит:
+  visualize_graph(G, solution)   — статичная визуализация
+  animate_schedule(G, solution)   — анимация движения самосвалов
+Точка входа для отображения графа
+  result.json  
+Результат работы модели
